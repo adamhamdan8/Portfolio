@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="images/favicon.png" type="image/png" />
     <title>Adam Hamdan</title>
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 
     <!-- Google Font: Space Grotesk -->
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
@@ -26,7 +27,7 @@
             --text-sub: #636363;
             --primary: #BF8BFF;
             --highlight: #7C3AED;
-            --card-bg: #ffffff;
+            --card-bg: #f4f1fc;
             --border-color: #e5d8ff;
             --bg-highlight: #EEE5FC;
         }
@@ -84,25 +85,23 @@
             }
 
             .section-divider svg {
-                width: 120%; /* slightly wider than container */
+                width: 100%;
                 height: 40px;
-                display: block;
-                position: relative;
-                left: -10%; /* shift left to center the wider SVG */
-                animation: wave 6s ease-in-out infinite; /* slower for smoother */
+                opacity: 0.15; /* softer visibility */
+                fill: var(--border-color); /* light pastel color from your palette */
+                filter: blur(0.5px); /* slight blur for smoothness */
+                animation: softWave 8s ease-in-out infinite;
             }
 
-        @keyframes wave {
+        @keyframes softWave {
             0%, 100% {
                 transform: translateX(0);
             }
 
             50% {
-                transform: translateX(15px); /* bigger amplitude for visibility */
+                transform: translateX(8px); /* slightly more motion */
             }
         }
-
-
 
 
         /* ===== Header ===== */
@@ -299,18 +298,63 @@
             max-width: 400px; /* You can increase this if you want it even bigger */
         }
 
-        .slideshow-image {
+        .slideshow-stack {
+            position: relative;
             width: 100%;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-            opacity: 1;
-            transition: opacity 0.3s ease-in-out;
-            max-height: auto; /* match the intro-image max height */
-            object-fit: cover; /* keeps aspect ratio nicely */
+            aspect-ratio: 4 / 5; /* adjust as needed */
         }
 
-            .slideshow-image.fade-out {
+        .slideshow-stack {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 4 / 5;
+            max-width: 350px;
+            margin: auto;
+        }
+
+        .slideshow-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+            transition: transform 0.6s ease, opacity 0.6s ease;
+            opacity: 0;
+            z-index: 0;
+        }
+
+            /* Top image (visible) */
+            .slideshow-image.active {
+                opacity: 1;
+                z-index: 10;
+            }
+
+            /* Upcoming stacked images */
+            .slideshow-image.stack-1 {
+                transform: translate(10px, 10px);
+                opacity: 0.9;
+                z-index: 5;
+            }
+
+            .slideshow-image.stack-2 {
+                transform: translate(20px, 20px);
+                opacity: 0.75;
+                z-index: 4;
+            }
+
+            .slideshow-image.stack-3 {
+                transform: translate(30px, 30px);
+                opacity: 0.5;
+                z-index: 3;
+            }
+
+            /* Animation class for swipe */
+            .slideshow-image.swipe-left {
+                transform: translateX(-150%) rotate(-5deg);
                 opacity: 0;
+                z-index: 9;
             }
 
         .slideshow-indicator {
@@ -363,11 +407,12 @@
             margin-top: 1rem;
             font-size: 0.95rem;
             line-height: 1.5;
-            color: var(--text); /* Use your site's text color variable */
+            color: var(--highlight);
+            font-weight: bold;
         }
 
             .contact-info a {
-                color: var(--accent); /* Or your preferred accent color */
+                color: var(--highlight); /* Or your preferred accent color */
                 text-decoration: none;
             }
 
@@ -379,13 +424,13 @@
         /* ===== Headings and Paragraphs ===== */
         h2 {
             color: var(--highlight);
-            font-size:2.25rem;
+            font-size: 2.25rem;
         }
 
         h3, h4, h5 {
             color: var(--primary);
             margin: 0.4em 0;
-            font-size:1.5rem
+            font-size: 1.5rem
         }
 
         p {
@@ -396,21 +441,20 @@
         .card-row {
             display: flex;
             flex-wrap: wrap;
-            gap: 1.5rem;
-            justify-content: space-between;
+            justify-content: center;
+            gap: 2rem; /* consistent spacing between cards */
+            padding: 0 1rem;
         }
 
         .section-card {
-            flex: 1 1 30%;
-            max-width: 30%;
-            min-width: 380px;
+            flex: 0 1 400px; /* increase base width */
+            max-width: 450px; /* optional max width */
             box-sizing: border-box;
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
             padding: 1.5rem;
             border-radius: 12px;
-            box-shadow: 0 3px 12px rgba(0,0,0,0.03);
-            margin-bottom: 2rem;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.03);
             transition: transform 0.2s ease;
         }
 
@@ -430,6 +474,80 @@
             width: 100%;
         }
 
+        .card-divider {
+            border: none;
+            height: 1px;
+            background-color: var(--border-color);
+            margin: 1rem 0;
+        }
+
+        .card-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .view-model-btn {
+            padding: 0.4rem 0.9rem;
+            background-color: var(--highlight);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+            .view-model-btn:hover {
+                background-color: #5b21b6;
+            }
+
+        .org-link {
+            text-align: center;
+            font-weight: bold;
+            color: var(--highlight);
+            text-decoration: none;
+        }
+
+            .org-link:hover {
+                text-decoration: underline;
+            }
+
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0,0,0,0.6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+
+        .modal-content {
+            background-color: var(--card-bg);
+            padding: 1rem;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 800px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+            position: relative;
+        }
+
+            .modal-content .close {
+                position: absolute;
+                top: 0.75rem;
+                right: 1rem;
+                font-size: 1.75rem;
+                cursor: pointer;
+                color: var(--text-sub);
+            }
+
+        #projects {
+            margin-bottom: 4rem;
+        }
 
         /* Responsive stacking for small screens */
         @media (max-width: 600px) {
@@ -440,7 +558,12 @@
             }
 
             .card-row {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 2rem;
                 justify-content: center;
+                padding-left: 1rem;
+                padding-right: 1rem;
             }
 
             .card-link {
@@ -448,7 +571,6 @@
                 max-width: 90%;
                 min-width: 0;
             }
-
 
             .nav-links {
                 right: 0.5rem;
@@ -461,15 +583,19 @@
             }
         }
 
-        /* ===== Project Images ===== */
-        .project-img {
-            width: 100%;
-            border-radius: 8px;
-            margin-bottom: 1rem;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-            object-fit: cover;
-            max-height: 180px;
-        }
+            /* ===== Project Images ===== */
+            .project-img {
+                width: 100%;
+                height: 180px; /* Use fixed height with object-fit */
+                max-height: 180px; /* Optional, but redundant if height is fixed */
+                border-radius: 8px;
+                margin-bottom: 1rem;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+                object-fit: cover;
+            }
+
+            
+                    
 
         /* ===== Timeline for Experience ===== */
         .timeline {
@@ -482,6 +608,27 @@
             position: relative;
             margin-bottom: 2.5rem;
         }
+
+        .timeline-entry {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease-out;
+        }
+
+            .timeline-entry.visible {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            .timeline-entry::before {
+                transform: scale(0.5);
+                transition: transform 0.4s ease-out;
+            }
+
+            .timeline-entry.visible::before {
+                transform: scale(1);
+            }
+
 
             .timeline-entry::before {
                 content: "";
@@ -551,9 +698,16 @@
 
             <div class="intro-image-wrapper">
                 <div class="slideshow-container">
-                    <img class="slideshow-image" src="images/headshot1.jpg" alt="Headshot slideshow">
-                    <div class="slideshow-indicator">View slideshow</div>
+                    <div class="slideshow-stack" id="slideshowStack">
+                        <img src="images/headshot1.jpg" class="slideshow-image" alt="Slide 1">
+                        <img src="images/headshot2.jpg" class="slideshow-image" alt="Slide 2">
+                        <img src="images/headshot3.jpg" class="slideshow-image" alt="Slide 3">
+                        <img src="images/headshot4.jpg" class="slideshow-image" alt="Slide 4">
+                        <img src="images/headshot5.jpg" class="slideshow-image" alt="Slide 5">
+                        <img src="images/headshot6.jpg" class="slideshow-image" alt="Slide 6">
+                    </div>
                 </div>
+
             </div>
         </div>
     </div>
@@ -622,39 +776,57 @@
         <div class="container">
             <h2>Projects</h2>
             <div class="card-row">
+                <!-- Subjugator -->
                 <div class="section-card">
-                    <a href="https://mil.ufl.edu/" target="_blank" class="card-link">
-                        <img src="images/SubjuGator.JPG" alt="SubjuGator robot" class="project-img" />
-                        <h3>SubjuGator: Autonomous Underwater Vehicle</h3>
-                        <ul>
-                            <li>Led design of waterproof enclosures, mechanisms, and internal layouts</li>
-                            <li>Developed hot-swappable battery system and underwater potting solutions</li>
-                        </ul>
-                    </a>
+                    <img src="images/subjugator.jpg" class="project-img" alt="Subjugator AUV">
+                    <h4>SubjuGator Autonomous Underwater Vehicle</h4>
+                    <ul>
+                        <li>Led mechanical and organizational development of autonomous submarine for RoboSub competition</li>
+                        <li>Designed hot-swappable battery tubes, navigation housing, and waterproofed high-voltage systems</li>
+                        <li>Resolved critical power system failures and streamlined team operations and documentation</li>
+                    </ul>
+                    <hr class="card-divider">
+                    <div class="card-actions">
+                        <button class="view-model-btn" onclick="openModel('subjugator')">View Model</button>
+                        <a href="https://mil.ufl.edu/vehicles" class="org-link" target="_blank" rel="noopener">View Organization Website</a>
+                    </div>
                 </div>
 
 
+                <!-- Navigator -->
                 <div class="section-card">
-                    <a href="https://mil.ufl.edu/" target="_blank" class="card-link">
-                        <img src="images/NaviGator.jpg" alt="NaviGator boat" class="project-img" />
-                        <h3>NaviGator: Autonomous Maritime Platform</h3>
-                        <ul>
-                            <li>Redesigned vehicle layout for reliability and ease of maintenance</li>
-                            <li>Implemented passive and active cooling for the onboard compute stack</li>
-                        </ul>
-                    </a>
+                    <img src="images/navigator.jpg" class="project-img" alt="Navigator AUV">
+                    <h4>NaviGator Autonomous Underwater Vehicle</h4>
+                    <ul>
+                        <li>Collaborated on the mechanical design and integration of Navigator for multi-vehicle RobotX missions</li>
+                        <li>Supported development of modular subsystems and alignment with an aerial vehicle InvestiGator for synchronized tasks</li>
+                        <li>Contributed to documentation, computer configuration and cooling, and pressure testing workflows</li>
+                    </ul>
+                    <hr class="card-divider">
+                    <div class="card-actions">
+                        <button class="view-model-btn" onclick="openModel('navigator')">View Model</button>
+                        <a href="https://mil.ufl.edu/vehicles" class="org-link" target="_blank" rel="noopener">View Organization Website</a>
+                    </div>
                 </div>
 
+
+                <!-- Big Blue -->
                 <div class="section-card">
-                    <a href="https://faculty.eng.ufl.edu/bio-materials-tribology-laboratory/" target="_blank" class="card-link">
-                        <img src="images/bigblue.png" alt="Wear Tribometer" class="project-img" />
-                        <h3>Reciprocating Wear Tribometer</h3>
-                        <ul>
-                            <li>Designed GUI in Python for time sensitive friction data collection</li>
-                            <li>Created electrical and mechanical layout to allow for simultaneous control of pneumatics and screw-driven stage</li>
-                        </ul>
-                    </a>
+                    <img src="images/bigblue.png" class="project-img" alt="Wear Tribometer">
+                    <h4>Reciprocating Wear Tribometer (“Big Blue”)</h4>
+                    <ul>
+                        <li>Developed Python GUI for synchronized friction data acquisition and real-time display</li>
+                        <li>Engineered control architecture to operate pneumatic clamping and linear stage in unison</li>
+                        <li>Integrated electrical communication protocols and established clean mechanical layout</li>
+                        <li>Gathered validation data, coefficients of friction for PTFE samples over cycles</li>
+                    </ul>
+                    <hr class="card-divider">
+                    <div class="card-actions">
+                        <button class="view-model-btn" onclick="openModel('bigblue')">View Model</button>
+                        <a href="https://faculty.eng.ufl.edu/bio-materials-tribology-laboratory/" class="org-link" target="_blank" rel="noopener">View Organization Website</a>
+                    </div>
                 </div>
+
             </div>
         </div>
     </section>
@@ -665,6 +837,20 @@
             <svg viewBox="0 0 120 20" preserveAspectRatio="none">
                 <path d="M0 10 Q 30 0, 60 10 T 120 10" fill="transparent" stroke="var(--highlight)" stroke-width="2" />
             </svg>
+        </div>
+    </div>
+
+    <!-- Model Viewer Modal -->
+    <div id="modelModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close" onclick="closeModel()">&times;</span>
+            <model-viewer id="modelViewer"
+                          alt="3D model"
+                          src=""
+                          auto-rotate
+                          camera-controls
+                          style="width: 100%; height: 500px; background: #f0f0f0; border-radius: 12px;">
+            </model-viewer>
         </div>
     </div>
 
@@ -693,51 +879,99 @@
     </footer>
 
     <script>
+
+        // burger
         function toggleMenu() {
             const nav = document.getElementById("mainNav");
             nav.classList.toggle("show");
         }
 
+        // Slideshow on my picture
         document.addEventListener("DOMContentLoaded", () => {
-            const images = [
-                "images/headshot1.jpg",
-                "images/headshot2.jpg",
-                "images/headshot3.jpg",
-                "images/headshot4.jpg",
-                "images/headshot5.jpg",
-                "images/headshot6.jpg",
-                "images/headshot7.jpg",
-                "images/headshot8.jpg"
-            ];
-
-            const slideshowImg = document.querySelector(".slideshow-image");
+            const stack = document.getElementById("slideshowStack");
+            const images = stack.querySelectorAll(".slideshow-image");
+            const total = images.length;
             let current = 0;
             let interval = null;
 
-            const fadeToImage = (src) => {
-                slideshowImg.classList.add("fade-out");
+            function updateStack() {
+                images.forEach((img, i) => {
+                    img.classList.remove("active", "stack-1", "stack-2", "stack-3", "swipe-left");
+                });
+
+                const next1 = (current + 1) % total;
+                const next2 = (current + 2) % total;
+                const next3 = (current + 3) % total;
+
+                images[current].classList.add("active");
+                images[next1].classList.add("stack-1");
+                images[next2].classList.add("stack-2");
+                images[next3].classList.add("stack-3");
+            }
+
+            function transitionToNext() {
+                const currentImg = images[current];
+                currentImg.classList.add("swipe-left");
+
                 setTimeout(() => {
-                    slideshowImg.src = src;
-                    slideshowImg.classList.remove("fade-out");
-                }, 300);
-            };
+                    current = (current + 1) % total;
+                    updateStack();
+                }, 600); // match CSS transition duration
+            }
 
-            const startSlideshow = () => {
-                interval = setInterval(() => {
-                    current = (current + 1) % images.length;
-                    fadeToImage(images[current]);
-                }, 1500);
-            };
+            function startSlideshow() {
+                interval = setInterval(transitionToNext, 2000);
+            }
 
-            const stopSlideshow = () => {
+            function stopSlideshow() {
                 clearInterval(interval);
-                fadeToImage(images[0]);
-                current = 0;
-            };
+            }
 
-            slideshowImg.addEventListener("mouseenter", startSlideshow);
-            slideshowImg.addEventListener("mouseleave", stopSlideshow);
+            stack.addEventListener("mouseenter", startSlideshow);
+            stack.addEventListener("mouseleave", stopSlideshow);
+
+            updateStack();
         });
+
+
+        // Model Viewer
+        function openModel(modelName) {
+            const viewer = document.getElementById('modelViewer');
+            const modal = document.getElementById('modelModal');
+            // Update this path to match where your .glb files are
+            viewer.src = `models/${modelName}.glb`;
+            modal.style.display = 'block';
+        }
+
+        function closeModel() {
+            document.getElementById('modelModal').style.display = 'none';
+        }
+
+        // Optional: close modal if background is clicked
+        window.onclick = function (event) {
+            const modal = document.getElementById('modelModal');
+            if (event.target === modal) {
+                modal.style.display = 'flex';
+            }
+        }
+
+        // Scroll-triggered animation for experience timeline
+        document.addEventListener("DOMContentLoaded", () => {
+            const entries = document.querySelectorAll(".timeline-entry");
+
+            const observer = new IntersectionObserver((entriesList) => {
+                entriesList.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("visible");
+                    }
+                });
+            }, {
+                threshold: 0.15
+            });
+
+            entries.forEach(entry => observer.observe(entry));
+        });
+ 
     </script>
 
 </body>
