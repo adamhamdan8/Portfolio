@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="images/favicon.png" type="image/png" />
     <title>Adam Hamdan</title>
 
     <!-- Google Font: Space Grotesk -->
@@ -27,6 +28,7 @@
             --highlight: #7C3AED;
             --card-bg: #ffffff;
             --border-color: #e5d8ff;
+            --bg-highlight: #EEE5FC;
         }
 
         /* ===== Global Styles ===== */
@@ -40,9 +42,16 @@
             background-color: var(--bg-color);
             color: var(--text-main);
             line-height: 1.7;
-            font-size: 1rem;
+            font-size: 1.5rem;
             padding-top: 6rem; /* Fallback for fixed header */
         }
+
+        @media (max-width: 768px) {
+            body {
+                font-size: 1rem; /* or smaller as you like */
+            }
+        }
+
 
         /* Responsive fallback: ensure intro is never overlapped by nav */
         @media (max-width: 768px) {
@@ -52,12 +61,49 @@
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1600px;
             margin: 0 auto;
             padding: 0 1rem;
             width: 100%;
             box-sizing: border-box;
         }
+
+        /* Divider */
+        .section-divider {
+            width: 100%;
+            overflow: hidden;
+            height: 40px;
+        }
+
+            .section-divider .container {
+                max-width: 1400px; /* or your container width */
+                margin: 0 auto;
+                padding: 0;
+                position: relative;
+                overflow: hidden; /* clip overflow inside container */
+            }
+
+            .section-divider svg {
+                width: 120%; /* slightly wider than container */
+                height: 40px;
+                display: block;
+                position: relative;
+                left: -10%; /* shift left to center the wider SVG */
+                animation: wave 6s ease-in-out infinite; /* slower for smoother */
+            }
+
+        @keyframes wave {
+            0%, 100% {
+                transform: translateX(0);
+            }
+
+            50% {
+                transform: translateX(15px); /* bigger amplitude for visibility */
+            }
+        }
+
+
+
 
         /* ===== Header ===== */
         .Header {
@@ -72,7 +118,7 @@
             flex-direction: column;
             align-items: flex-start;
             box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            width:100%;
+            width: 100%;
             box-sizing: border-box;
         }
 
@@ -93,7 +139,7 @@
         }
 
             .header-main h1 {
-                font-size: 2.5rem;
+                font-size: 3rem;
                 margin: 0;
                 flex-shrink: 1;
                 color: var(--highlight);
@@ -104,6 +150,16 @@
             font-size: 1.1rem;
             color: var(--text-sub);
             margin: 0 0 0.25rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .header-main h1 {
+                font-size: 2rem; /* adjust this size as needed */
+            }
+
+            .intro-section {
+                padding-top: 1rem !important; /* reduce top padding on smaller screens */
+            }
         }
 
         /* Nav Layout */
@@ -172,7 +228,7 @@
                     color: var(--text-main);
                 }
 
-        /* ===== CTA Button ===== */
+        /* CTA Button */
         .cta-button {
             display: inline-block;
             padding: 0.4rem 0.9rem;
@@ -184,7 +240,7 @@
             text-decoration: none;
             font-weight: bold;
             transition: background 0.3s;
-            align-items:center;
+            align-items: center;
         }
 
             .cta-button:hover {
@@ -197,38 +253,139 @@
             flex-wrap: wrap;
             align-items: center;
             gap: 2rem;
-            padding: 4rem 0 2rem; /* keep bottom padding */
+            padding: 4rem 2rem 2rem; /* keep bottom padding */
+            background-color: var(--bg-highlight);
         }
 
         .intro-text {
-            flex: 1 1 60%;
+            flex: 1 1 50%; /* reduced from 60% for better balance */
             min-width: 300px;
+            font-size: 1.25rem; /* increased font size */
+            line-height: 1.6;
+            max-width: 600px; /* keep text container readable */
         }
 
         .intro-image-wrapper {
-            flex: 1 1 100%;
+            flex: 1 1 45%;
             display: flex;
             justify-content: center;
+            align-items: center;
         }
 
         .intro-image {
             max-width: 100%;
+            max-height: auto; /* increase max height for bigger image */
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s ease;
         }
 
             .intro-image:hover {
                 transform: translateY(-4px);
             }
 
+        /* === New Slideshow & Layout Styles === */
+        .intro-flex {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2rem;
+        }
+
+        .slideshow-container {
+            position: relative;
+            width: 100%;
+            max-width: 400px; /* You can increase this if you want it even bigger */
+        }
+
+        .slideshow-image {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            opacity: 1;
+            transition: opacity 0.3s ease-in-out;
+            max-height: auto; /* match the intro-image max height */
+            object-fit: cover; /* keeps aspect ratio nicely */
+        }
+
+            .slideshow-image.fade-out {
+                opacity: 0;
+            }
+
+        .slideshow-indicator {
+            position: absolute;
+            bottom: 6px;
+            right: 10px;
+            background-color: rgba(255, 255, 255, 0.75);
+            color: #555;
+            padding: 2px 6px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-style: italic;
+            transition: opacity 0.3s ease;
+        }
+
+        .slideshow-container:hover .slideshow-indicator {
+            opacity: 0;
+        }
+
+        @media (max-width: 768px) {
+            .intro-flex {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .intro-text {
+                flex: 1 1 90%;
+                font-size: 1.1rem; /* slightly smaller on mobile but still bigger than before */
+                max-width: none;
+            }
+
+            .intro-image-wrapper {
+                flex: 1 1 100%;
+                width: 100%;
+                margin-top: 1.5rem;
+            }
+
+            .slideshow-container {
+                max-width: 100%;
+                width: 80%;
+                max-height: auto; /* slightly smaller on mobile */
+            }
+
+            .slideshow-image {
+                max-height: auto;
+            }
+        }
+
+        .contact-info {
+            margin-top: 1rem;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: var(--text); /* Use your site's text color variable */
+        }
+
+            .contact-info a {
+                color: var(--accent); /* Or your preferred accent color */
+                text-decoration: none;
+            }
+
+                .contact-info a:hover {
+                    text-decoration: underline;
+                }
+
+
         /* ===== Headings and Paragraphs ===== */
         h2 {
             color: var(--highlight);
+            font-size:2.25rem;
         }
 
         h3, h4, h5 {
             color: var(--primary);
             margin: 0.4em 0;
+            font-size:1.5rem
         }
 
         p {
@@ -246,7 +403,7 @@
         .section-card {
             flex: 1 1 30%;
             max-width: 30%;
-            min-width: 280px;
+            min-width: 380px;
             box-sizing: border-box;
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
@@ -287,12 +444,11 @@
             }
 
             .card-link {
-                
                 flex: 1 1 90%;
                 max-width: 90%;
                 min-width: 0;
             }
-        
+
 
             .nav-links {
                 right: 0.5rem;
@@ -303,7 +459,6 @@
             .Header {
                 padding: 0.75rem 1rem;
             }
-
         }
 
         /* ===== Project Images ===== */
@@ -346,16 +501,8 @@
             color: var(--text-sub);
             padding: 3rem 2rem;
         }
-
     </style>
 </head>
-
-<script>
-    function toggleMenu() {
-        const nav = document.getElementById("mainNav");
-        nav.classList.toggle("show");
-    }
-</script>
 
 <body>
 
@@ -372,7 +519,7 @@
                         <a href="#experience">Experience</a>
                         <a href="#projects">Projects</a>
                         <a href="#skills">Skills</a>
-                        <a href="Adam_Hamdan_Resume.pdf" class="cta-button" download>Resume</a>
+                        <a href="AdamHamdanResumeWIP.pdf" class="cta-button" download>Resume</a>
                     </nav>
                 </div>
             </div>
@@ -382,20 +529,31 @@
 
     <!-- ===== Intro Section with Bio and Image ===== -->
     <div class="intro-section">
-        <div class="container">
+        <div class="container intro-flex">
             <div class="intro-text">
                 <p>
                     I'm a mechanical engineering undergraduate at the University of Florida
                     with a focus on autonomous robotics. I love system integration and testing, and my
                     goal is to develop practical autonomous robotics that help people every day!
-                    I have minors in electrical engineering and anthropology, and indication of my desire to be
-                    interdiscplinary and learn as much as I can. I also love teaching and collaborating with
+                    I have minors in electrical engineering and anthropology, an indication of my desire to be
+                    interdisciplinary and learn as much as I can. I also love teaching and collaborating with
                     other engineers and stakeholders, and I hope to bring those passions into everything I do.
+                    <br /><br />
+                    In my freetime I'm into the X-Men, building computers and keyboards, hosting my own webserver, and music!
                 </p>
+
+                <div class="contact-info">
+                    <p>Email: <a href="mailto:adamhamdan504@gmail.com">adamhamdan504@gmail.com</a></p>
+                    <p>Phone: <a href="tel:+15613073772">(561) 307-3772</a></p>
+                    <p>LinkedIn: <a href="https://www.linkedin.com/in/adamhamdan" target="_blank">linkedin.com/in/adamhamdan</a></p>
+                </div>
             </div>
-        
+
             <div class="intro-image-wrapper">
-                <img class="intro-image" src="images/ozymandiasandtheworld.jpg" alt="Ozymandias and the world">
+                <div class="slideshow-container">
+                    <img class="slideshow-image" src="images/headshot1.jpg" alt="Headshot slideshow">
+                    <div class="slideshow-indicator">View slideshow</div>
+                </div>
             </div>
         </div>
     </div>
@@ -410,7 +568,12 @@
                     <h3>South Florida Water Management District</h3>
                     <p><em>Hydraulics/Hydrology Intern • May 2025 – Aug 2025</em></p>
                     <ul>
-                        <li>Placeholder for internship responsibilities</li>
+                        <li>
+                            Aided in the maintenance, control, and implementation of 936 water control structures
+                            from Orlando to the Florida Keys with the goals of nature preservation, water supply, and flood control
+                        </li>
+                        <li>Calculated flows through structures to ensure proper movement and control of the states water supply</li>
+                        <li>Compiled definitive structure books for two water control structures, containing all relevant documentation</li>
                     </ul>
                 </div>
 
@@ -445,12 +608,21 @@
         </div>
     </section>
 
+    <!-- Divider -->
+    <div class="section-divider">
+        <div class="container">
+            <svg viewBox="0 0 120 20" preserveAspectRatio="none">
+                <path d="M0 10 Q 30 0, 60 10 T 120 10" fill="transparent" stroke="var(--highlight)" stroke-width="2" />
+            </svg>
+        </div>
+    </div>
+
     <!-- ===== Projects Section ===== -->
     <section id="projects">
         <div class="container">
             <h2>Projects</h2>
             <div class="card-row">
-               <div class="section-card">
+                <div class="section-card">
                     <a href="https://mil.ufl.edu/" target="_blank" class="card-link">
                         <img src="images/SubjuGator.JPG" alt="SubjuGator robot" class="project-img" />
                         <h3>SubjuGator: Autonomous Underwater Vehicle</h3>
@@ -459,32 +631,42 @@
                             <li>Developed hot-swappable battery system and underwater potting solutions</li>
                         </ul>
                     </a>
-               </div>
-                
-                
-              <div class="section-card">
-                <a href="https://mil.ufl.edu/" target="_blank" class="card-link">
-                  <img src="images/NaviGator.jpg" alt="NaviGator boat" class="project-img" />
-                  <h3>NaviGator: Autonomous Maritime Platform</h3>
-                  <ul>
-                     <li>Redesigned vehicle layout for reliability and ease of maintenance</li>
-                     <li>Implemented passive and active cooling for the onboard compute stack</li>
-                  </ul>
-                </a>
-              </div>
-                
-                    <div class="section-card">
-                        <img src="images/autosampler.jpg" alt="Biomedical Autosampler" class="project-img" />
-                        <h3>Biomedical Auto Sampler</h3>
+                </div>
+
+
+                <div class="section-card">
+                    <a href="https://mil.ufl.edu/" target="_blank" class="card-link">
+                        <img src="images/NaviGator.jpg" alt="NaviGator boat" class="project-img" />
+                        <h3>NaviGator: Autonomous Maritime Platform</h3>
                         <ul>
-                            <li>Designed UI and electronics layout for compact fluid-handling system</li>
-                            <li>Performed cost/market analysis and considered open-source deployment</li>
+                            <li>Redesigned vehicle layout for reliability and ease of maintenance</li>
+                            <li>Implemented passive and active cooling for the onboard compute stack</li>
                         </ul>
-                    </div>
+                    </a>
+                </div>
+
+                <div class="section-card">
+                    <a href="https://faculty.eng.ufl.edu/bio-materials-tribology-laboratory/" target="_blank" class="card-link">
+                        <img src="images/bigblue.png" alt="Wear Tribometer" class="project-img" />
+                        <h3>Reciprocating Wear Tribometer</h3>
+                        <ul>
+                            <li>Designed GUI in Python for time sensitive friction data collection</li>
+                            <li>Created electrical and mechanical layout to allow for simultaneous control of pneumatics and screw-driven stage</li>
+                        </ul>
+                    </a>
+                </div>
             </div>
         </div>
     </section>
 
+    <!-- Divider -->
+    <div class="section-divider">
+        <div class="container">
+            <svg viewBox="0 0 120 20" preserveAspectRatio="none">
+                <path d="M0 10 Q 30 0, 60 10 T 120 10" fill="transparent" stroke="var(--highlight)" stroke-width="2" />
+            </svg>
+        </div>
+    </div>
 
     <!-- ===== Tools and Skills Section ===== -->
     <section id="skills">
@@ -509,6 +691,54 @@
     <footer>
         <p>© 2025 Adam Hamdan • Never Fear!</p>
     </footer>
+
+    <script>
+        function toggleMenu() {
+            const nav = document.getElementById("mainNav");
+            nav.classList.toggle("show");
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const images = [
+                "images/headshot1.jpg",
+                "images/headshot2.jpg",
+                "images/headshot3.jpg",
+                "images/headshot4.jpg",
+                "images/headshot5.jpg",
+                "images/headshot6.jpg",
+                "images/headshot7.jpg",
+                "images/headshot8.jpg"
+            ];
+
+            const slideshowImg = document.querySelector(".slideshow-image");
+            let current = 0;
+            let interval = null;
+
+            const fadeToImage = (src) => {
+                slideshowImg.classList.add("fade-out");
+                setTimeout(() => {
+                    slideshowImg.src = src;
+                    slideshowImg.classList.remove("fade-out");
+                }, 300);
+            };
+
+            const startSlideshow = () => {
+                interval = setInterval(() => {
+                    current = (current + 1) % images.length;
+                    fadeToImage(images[current]);
+                }, 1500);
+            };
+
+            const stopSlideshow = () => {
+                clearInterval(interval);
+                fadeToImage(images[0]);
+                current = 0;
+            };
+
+            slideshowImg.addEventListener("mouseenter", startSlideshow);
+            slideshowImg.addEventListener("mouseleave", stopSlideshow);
+        });
+    </script>
 
 </body>
 </html>
