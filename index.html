@@ -676,14 +676,17 @@
         <div class="container intro-flex">
             <div class="intro-text">
                 <p>
-                    I'm a mechanical engineering undergraduate at the University of Florida
-                    with a focus on autonomous robotics. I love system integration and testing, and my
-                    goal is to develop practical autonomous robotics that help people every day!
-                    I have minors in electrical engineering and anthropology, an indication of my desire to be
-                    interdisciplinary and learn as much as I can. I also love teaching and collaborating with
-                    other engineers and stakeholders, and I hope to bring those passions into everything I do.
-                    <br /><br />
-                    In my freetime I'm into the X-Men, building computers and keyboards, hosting my own webserver, and music!
+                    I'm a mechanical engineering undergraduate at the University of Florida with a focus on autonomous robotics. 
+                    I’m especially passionate about system integration and testing, with the goal of developing practical robotics that 
+                    improve people’s everyday lives. I also hold minors in electrical engineering and anthropology, reflecting my commitment 
+                    to interdisciplinary thinking and continuous learning.
+                    <br/><br/>
+                    Beyond engineering, I love teaching, collaborating across disciplines, and communicating ideas clearly, skills I aim to 
+                    bring to every team and project I’m part of.
+                    <br/><br/>
+                    In my free time, I’m into X-Men comics, building custom computers and keyboards, self-hosting web services, and exploring 
+                    all kinds of music
+
                 </p>
 
                 <div class="contact-info">
@@ -872,7 +875,7 @@
 
     <!-- ===== Footer Info ===== -->
     <footer>
-        <p>© 2025 Adam Hamdan • Never Fear!</p>
+        <p id ="footer-quote"></p>
     </footer>
 
     <script>
@@ -917,7 +920,8 @@
             }
 
             function startSlideshow() {
-                interval = setInterval(transitionToNext, 2000);
+                transitionToNext(); // trigger swipe immediately on hover
+                interval = setInterval(transitionToNext, 2000); // then continue every 2 seconds
             }
 
             function stopSlideshow() {
@@ -968,6 +972,27 @@
 
             entries.forEach(entry => observer.observe(entry));
         });
+
+        // footer quotes
+        const quotes = [
+            "With great power, there must also come great responsibility.",
+            "To me, my X-Men!",
+            "Good for health, bad for education.",
+            "It’s not wrong to dream. But you have to work for it.",
+            "I always feel like I can do anything. That’s the main thing people are controlled by - their perception of themselves.",
+            "Fear is the mind-killer.",
+            "He who can destroy a thing has the real control of it.",
+            "A beginning is a very delicate time.",
+            "When the power is yours, the choice is yours.",
+            "The ‘S’ stands for hope.",
+            "It’s not just going to rain today. It’s going to pour.",
+            "A lesson in humility teaches more than success ever could.",
+            "You may have the facts on your side, but I have the resolve.",
+            "The next thing you’re going to say is…"
+        ];
+
+        const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+        document.getElementById("footer-quote").textContent = randomQuote;
  
     </script>
 
