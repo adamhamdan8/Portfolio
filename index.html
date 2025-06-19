@@ -159,6 +159,10 @@
 
             .intro-section {
                 padding-top: 1rem !important; /* reduce top padding on smaller screens */
+
+                .slideshow-container {
+        margin-bottom: 1.5rem; /* or padding-bottom if you prefer */
+    }
             }
         }
 
@@ -691,14 +695,14 @@
                     bring to every team and project I’m part of.
                     <br/><br/>
                     In my free time, I’m into X-Men comics, building custom computers and keyboards, self-hosting web services, and exploring 
-                    all kinds of music
+                    all kinds of music.
 
                 </p>
 
                 <div class="contact-info">
                     <p>Email: <a href="mailto:adamhamdan504@gmail.com">adamhamdan504@gmail.com</a></p>
                     <p>Phone: <a href="tel:+15613073772">(561) 307-3772</a></p>
-                    <p>LinkedIn: <a href="https://www.linkedin.com/in/adamhamdan" target="_blank">linkedin.com/in/adamhamdan</a></p>
+                    <p>LinkedIn: <a href="https://www.linkedin.com/in/adam-a-hamdan" target="_blank">linkedin.com/in/adam-a-hamdan</a></p>
                 </div>
             </div>
 
@@ -947,7 +951,7 @@
             const modal = document.getElementById('modelModal');
             // Update this path to match where your .glb files are
             viewer.src = `models/${modelName}.glb`;
-            modal.style.display = 'block';
+            modal.style.display = 'flex';
         }
 
         function closeModel() {
@@ -958,9 +962,9 @@
         window.onclick = function (event) {
             const modal = document.getElementById('modelModal');
             if (event.target === modal) {
-                modal.style.display = 'flex';
+                modal.style.display = 'none'; // ✅ Closes the modal on background click
             }
-        }
+        };
 
         // Scroll-triggered animation for experience timeline
         document.addEventListener("DOMContentLoaded", () => {
