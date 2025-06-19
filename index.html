@@ -160,9 +160,10 @@
             .intro-section {
                 padding-top: 1rem !important; /* reduce top padding on smaller screens */
 
-                .slideshow-container {
-        margin-bottom: 1.5rem; /* or padding-bottom if you prefer */
-    }
+                
+            }
+            .slideshow-container {
+                margin-bottom: 1.5rem; /* or padding-bottom if you prefer */
             }
         }
 
@@ -643,6 +644,7 @@
                 border-radius: 50%;
             }
 
+
         /* ===== Footer ===== */
         footer {
             text-align: center;
@@ -686,15 +688,15 @@
         <div class="container intro-flex">
             <div class="intro-text">
                 <p>
-                    I'm a mechanical engineering undergraduate at the University of Florida with a focus on autonomous robotics. 
-                    I’m especially passionate about system integration and testing, with the goal of developing practical robotics that 
-                    improve people’s everyday lives. I also hold minors in electrical engineering and anthropology, reflecting my commitment 
+                    I'm a mechanical engineering undergraduate at the University of Florida with a focus on autonomous robotics.
+                    I’m especially passionate about system integration and testing, with the goal of developing practical robotics that
+                    improve people’s everyday lives. I also hold minors in electrical engineering and anthropology, reflecting my commitment
                     to interdisciplinary thinking and continuous learning.
-                    <br/><br/>
-                    Beyond engineering, I love teaching, collaborating across disciplines, and communicating ideas clearly, skills I aim to 
+                    <br /><br />
+                    Beyond engineering, I love teaching, collaborating across disciplines, and communicating ideas clearly, skills I aim to
                     bring to every team and project I’m part of.
-                    <br/><br/>
-                    In my free time, I’m into X-Men comics, building custom computers and keyboards, self-hosting web services, and exploring 
+                    <br /><br />
+                    In my free time, I’m into X-Men comics, building custom computers and keyboards, self-hosting web services, and exploring
                     all kinds of music.
 
                 </p>
@@ -832,7 +834,7 @@
                     </ul>
                     <hr class="card-divider">
                     <div class="card-actions">
-                        <button class="view-model-btn" onclick="openModel('bigblue')">View Model</button>
+                        <button onclick="openVideoModal()" class="view-model-btn">View Demo</button>
                         <a href="https://faculty.eng.ufl.edu/bio-materials-tribology-laboratory/" class="org-link" target="_blank" rel="noopener">View Organization Website</a>
                     </div>
                 </div>
@@ -864,6 +866,17 @@
         </div>
     </div>
 
+    <!-- Demo Video Modal -->
+    <div id="videoModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close" onclick="closeVideoModal()">&times;</span>
+            <video id="demoVideo" width="100%" controls>
+                <source src="videos/bigblue-demo.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </div>
+
     <!-- ===== Tools and Skills Section ===== -->
     <section id="skills">
         <div class="container">
@@ -885,7 +898,7 @@
 
     <!-- ===== Footer Info ===== -->
     <footer>
-        <p id ="footer-quote"></p>
+        <p id="footer-quote"></p>
     </footer>
 
     <script>
@@ -966,6 +979,33 @@
             }
         };
 
+        // Demo Video
+        function openVideoModal() {
+            const modal = document.getElementById('videoModal');
+            const video = document.getElementById('demoVideo');
+            modal.style.display = 'flex';
+            video.currentTime = 0; // optional: reset to start
+            video.play(); // optional: auto-play
+        }
+
+        function closeVideoModal() {
+            const modal = document.getElementById('videoModal');
+            const video = document.getElementById('demoVideo');
+            modal.style.display = 'none';
+            video.pause();
+            video.currentTime = 0; // rewind when closing
+        }
+
+        window.onclick = function (event) {
+            const modal = document.getElementById('videoModal');
+            const content = document.querySelector('#videoModal .modal-content');
+
+            // If clicking directly on the modal (background), but not the inner content
+            if (event.target === modal) {
+                closeVideoModal();
+            }
+        };
+
         // Scroll-triggered animation for experience timeline
         document.addEventListener("DOMContentLoaded", () => {
             const entries = document.querySelectorAll(".timeline-entry");
@@ -1003,7 +1043,7 @@
 
         const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
         document.getElementById("footer-quote").textContent = randomQuote;
- 
+
     </script>
 
 </body>
