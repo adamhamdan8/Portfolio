@@ -18,6 +18,7 @@
         html, body {
             max-width: 100%;
             overflow-x: hidden;
+            scroll-padding-top: 10rem;
         }
 
         /* ===== Root Color Variables for Easy Theming ===== */
@@ -649,14 +650,19 @@
 </head>
 
 <body>
-
+    <div id="#top"></div>
     <!-- ===== Header Section ===== -->
     <audio id="click" src="sounds/masteroftheworld.mp3" preload="auto"></audio>
     <div class="Header">
         <div class="container">
             <p class="intro-label">Welcome! I'm...</p>
             <div class="header-main">
-                <h1 title="A little easter egg for you!" onclick="document.getElementById('click').play()"><b>Adam Hamdan</b></h1>
+                <a href="#" style="text-decoration: none; color: inherit;">
+                    <h1 title="A little easter egg for you!" onclick="document.getElementById('click').play()">
+                        <b>Adam Hamdan</b>
+                    </h1>
+                </a>
+
                 <div class="nav-wrapper">
                     <button class="menu-toggle" aria-label="Toggle navigation" onclick="toggleMenu()">☰</button>
                     <nav id="mainNav" class="nav-links">
