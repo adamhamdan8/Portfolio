@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="images/favicon.png" type="image/png" />
+  <title>Server Dashboard - Adam Hamdan</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Header -->
+  <div class="Header">
+    <div class="container">
+      <p class="intro-label">Welcome! I'm...</p>
+      <div class="header-main">
+        <a href="index.html" style="text-decoration: none; color: inherit;">
+          <h1 title="A little easter egg for you!" onclick="document.getElementById('click').play()">
+            <b>Adam Hamdan</b>
+          </h1>
+        </a>
+        <div class="nav-wrapper">
+          <button class="menu-toggle" aria-label="Toggle navigation" onclick="toggleMenu()">☰</button>
+          <nav id="mainNav" class="nav-links">
+            <a href="index.html#experience">Experience</a>
+            <a href="index.html#projects">Projects</a>
+            <a href="index.html#skills">Skills</a>
+            <a href="AdamHamdanResumeWIP.pdf" class="cta-button" download>Resume</a>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Server Dashboard Section ===== -->
+  <section id="dashboard">
+    <div class="container">
+      <h2>Server Dashboard</h2>
+      <div class="card-row">
+        <div class="section-card">
+          <h4>CPU Usage</h4>
+          <p id="cpuUsage">Loading...</p>
+        </div>
+        <div class="section-card">
+          <h4>RAM Usage</h4>
+          <p id="ramUsage">Loading...</p>
+        </div>
+        <div class="section-card">
+          <h4>Disk Space</h4>
+          <p id="diskUsage">Loading...</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Minecraft Server Status Section ===== -->
+  <section id="minecraft-status">
+    <div class="container">
+      <h2>Minecraft Server Status</h2>
+      <div class="card-row">
+        <div class="section-card">
+          <h4>Current Players</h4>
+          <p id="mcPlayers">Loading...</p>
+        </div>
+        <div class="section-card">
+          <h4>Server RAM Usage</h4>
+          <p id="mcRamUsage">Loading...</p>
+        </div>
+        <div class="section-card">
+          <h4>Console Output</h4>
+          <div id="mcConsole" style="
+            background: #111; 
+            color: #0f0; 
+            font-family: monospace; 
+            font-size: 0.85rem; 
+            padding: 0.5rem; 
+            height: 200px; 
+            overflow-y: auto; 
+            border-radius: 6px;
+          ">
+            Loading console...
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Footer ===== -->
+  <footer>
+    <p id="footer-quote"></p>
+  </footer>
+
+  <!-- Sounds & Scripts -->
+  <audio id="click" src="sounds/masteroftheworld.mp3" preload="auto"></audio>
+  <script src="main.js"></script>
+</body>
+</html>
