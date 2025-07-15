@@ -6,8 +6,13 @@ PORT = 5005
 class WebhookHandler(BaseHTTPRequestHandler):
     def do_POST(self):
         if self.path == "/payload":
-            # Respond to GitHub quickly
+            # Read and discard the request body (important to avoid hanging)
+            content_length = int(self.headers.get('Content-Length', 0))
+            post_body = self.rfile.read(content_length)
+
+            # Respond quickly to GitHub
             self.send_response(200)
+            self.send_header('Content-Type', 'text/plain')
             self.end_headers()
             self.wfile.write(b'OK')
 
@@ -20,6 +25,11 @@ class WebhookHandler(BaseHTTPRequestHandler):
         else:
             self.send_response(404)
             self.end_headers()
+
+    def do_GET(self):
+        # Optionally: return 405 Method Not Allowed
+        self.send_response(405)
+        self.end_headers()
 
 if __name__ == "__main__":
     server_address = ('0.0.0.0', PORT)
