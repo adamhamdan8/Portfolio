@@ -47,58 +47,80 @@
                 </div>
         </div>
     </div>
-  <!-- ===== Server Dashboard Section ===== -->
-  <section id="dashboard">
-    <div class="container">
-      <h2>Server Dashboard</h2>
-      <div class="card-row">
-        <div class="section-card">
-          <h4>CPU Usage</h4>
-          <p id="cpuUsage">Loading...</p>
+<!-- ===== Server Dashboard Section ===== -->
+<section id="dashboard">
+  <div class="container">
+    <h2>Server Dashboard</h2>
+    <div class="card-row">
+      <!-- CPU Card -->
+      <div class="section-card">
+        <h4>CPU Usage</h4>
+        <div class="usage-label">
+          <span>CPU Usage:</span>
+          <span id="cpuUsageText">0%</span>
         </div>
-        <div class="section-card">
-          <h4>RAM Usage</h4>
-          <p id="ramUsage">Loading...</p>
-        </div>
-        <div class="section-card">
-          <h4>Disk Space</h4>
-          <p id="diskUsage">Loading...</p>
+        <div class="usage-bar">
+          <div class="bar-fill" id="cpuBar"></div>
         </div>
       </div>
-    </div>
-  </section>
 
-  <!-- ===== Minecraft Server Status Section ===== -->
-  <section id="minecraft-status">
-    <div class="container">
-      <h2>Minecraft Server Status</h2>
-      <div class="card-row">
-        <div class="section-card">
-          <h4>Current Players</h4>
-          <p id="mcPlayers">Loading...</p>
+      <!-- RAM Card -->
+      <div class="section-card">
+        <h4>RAM Usage</h4>
+        <div class="usage-label">
+          <span>RAM Usage:</span>
+          <span id="ramUsageText">0%</span>
         </div>
-        <div class="section-card">
-          <h4>Server RAM Usage</h4>
-          <p id="mcRamUsage">Loading...</p>
+        <div class="usage-bar">
+          <div class="bar-fill" id="ramBar"></div>
         </div>
-        <div class="section-card">
-          <h4>Console Output</h4>
-          <div id="mcConsole" style="
-            background: #111; 
-            color: #0f0; 
-            font-family: monospace; 
-            font-size: 0.85rem; 
-            padding: 0.5rem; 
-            height: 200px; 
-            overflow-y: auto; 
-            border-radius: 6px;
-          ">
-            Loading console...
-          </div>
+      </div>
+
+      <!-- Disk Card -->
+      <div class="section-card">
+        <h4>Disk Usage</h4>
+        <div class="usage-label">
+          <span>Disk Usage:</span>
+          <span id="diskUsageText">0%</span>
+        </div>
+        <div class="usage-bar">
+          <div class="bar-fill" id="diskBar"></div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
+
+ <!-- ===== Minecraft Server Status Section ===== -->
+<section id="minecraft-status">
+  <div class="container">
+    <h2>Minecraft Server Status</h2>
+    <div class="card-row">
+      <div class="section-card">
+        <h4>Current Players</h4>
+        <p id="mcPlayers" class="mc-data">Loading...</p>
+      </div>
+
+      <div class="section-card">
+        <h4>RAM</h4>
+        <div class="usage-label">
+          <span>Server Ram Usage:</span>
+          <span id="mcRamUsage">0%</span>
+        </div>
+        <div class="usage-bar">
+          <div class="bar-fill" id="mcRamBar"></div>
+        </div>
+      </div>
+      
+      <div class="section-card">
+        <h4>Console Output</h4>
+        <div id="mcConsole" class="mc-console">
+          Loading console...
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
   <!-- ===== Footer ===== -->
   <footer>
