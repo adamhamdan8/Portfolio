@@ -117,20 +117,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // footer quotes
 const quotes = [
-    "With great power, there must also come great responsibility.",
-    "To me, my X-Men!",
-    "Good for health, bad for education.",
-    "It’s not wrong to dream. But you have to work for it.",
-    "I always feel like I can do anything. That’s the main thing people are controlled by - their perception of themselves.",
-    "Fear is the mind-killer.",
-    "He who can destroy a thing has the real control of it.",
-    "A beginning is a very delicate time.",
-    "When the power is yours, the choice is yours.",
-    "The ‘S’ stands for hope.",
-    "It’s not just going to rain today. It’s going to pour.",
-    "A lesson in humility teaches more than success ever could.",
-    "You may have the facts on your side, but I have the resolve.",
-    "The next thing you’re going to say is…"
+    "With great power, there must also come great responsibility.", //stan lee spiderman, uncle ben
+    "To me, my X-Men!", // stan lee xmen, charles xavier
+    "Good for health, bad for education.", // akira
+    "It’s not wrong to dream. But you have to work for it.", //fmab, roy mustang
+    "I always feel like I can do anything. That’s the main thing people are controlled by - their perception of themselves.", //ye
+    "Fear is the mind-killer.", // dune, bene gesserit littany againt fear
+    "He who can destroy a thing has the real control of it.", // dune paul
+    "A beginning is a very delicate time.", // dune, princess irulan
+    "The ‘S’ stands for hope.", //superman
+    "A lesson in humility teaches more than success ever could.", //roy mustang, fmab
+    "The next thing you’re going to say is…", //joseph joestar
+    "Nothing ever ends." //dr. manhattan
+
 ];
 
 const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
