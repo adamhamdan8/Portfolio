@@ -3,4 +3,4 @@ This is a work in progress website that acts as my professional portfolio. Docum
 
 ## Code
 
-So far the website is going to be in basic HTML, just to not complicate things too much for my first websiste. I might use Python and Flask to actually run and host the website.
+So far the website is going to be in basic HTML, just to not complicate things too much for my first websiste. I might use Python and Flask to actually run and host the website!
